@@ -24,10 +24,17 @@ class ShoppingCart:
     def show_cart(self):
         return json.dumps({"cart_id": self.cart_id, "cart_items": self.cart_obj})
 
+    def __item_in_cart(self, item: Item):
+        item_sku = item["name"]
+        if item_sku in self.cart_obj:
+            print(f"Item `{item['name']}` already in cart.")
+            return True
+        return False
+
     def add_item(self, item: Item, quantity: int):
         # check if item exists in cart , then update
 
-        if self.cart_obj.get(f"{item['name']}", False):
+        if self.__item_in_cart(item):
             self.increase_cart_item_quantity(item, quantity)
         else:
             # add new item
@@ -46,9 +53,7 @@ class ShoppingCart:
 
     def increase_cart_item_quantity(self, item, quantity):
         # check if item exists
-        if self.cart_obj.get(f"{item['name']}", False):
-            print(f"Item `{item['name']}` already in cart.")
-
+        if self.__item_in_cart(item):
             cart_item_details = self.cart_obj[f"{item['name']}"]
             cart_item_details["quantity"] += quantity
 
@@ -62,9 +67,7 @@ class ShoppingCart:
 
     def reduce_cart_item_quantity(self, item, quantity):
         # check if item exists
-        if self.cart_obj.get(f"{item['name']}", False):
-            print(f"Item `{item['name']}` already in cart.")
-
+        if self.__item_in_cart(item):
             cart_item_details = self.cart_obj[f"{item['name']}"]
             if cart_item_details["quantity"] == quantity:
                 # this means a reduction to zero, hence remove item from cart.

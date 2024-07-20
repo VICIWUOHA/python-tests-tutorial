@@ -34,5 +34,3 @@ c.execute("INSERT INTO items VALUES (:name, :description, :price, :sku)",
 
 c.execute("SELECT * FROM items")
 print(c.fetchall())
-
-from pytest_tests import test_ShoppingCart
