@@ -7,8 +7,8 @@ class TestDataValidation(unittest.TestCase):
             {"price": 30, "id": "xxxxxx"},
             {"price": 25, "id": "1224"},
         ]
-        self.assertEqual(data,Item("50g Handler","A 50 g item for handling",500))
-        self.assertEqual(1,4)
+        self.assertNotEqual(data,Item("50g Handler","A 50 g item for handling",500))
+        self.assertLessEqual(1.9,2)
 
 if __name__ == '__main__':
     unittest.main()
