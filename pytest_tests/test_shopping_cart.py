@@ -8,23 +8,24 @@ def shopping_cart() -> ShoppingCart:
     my_cart = ShoppingCart("Ewolo")
     return my_cart
 
-def sample_item():
+@pytest.fixture(scope="session")
+def item():
     return Item("Foozie Ergonomic Mouse", "Comfy Mouse for gamers", 50).__dict__
 
 # @pytest.mark.usefixtures(shopping_cart)  enables the fixture but doesn't pass it into the fxn
-def test_add_items_to_cart(shopping_cart: ShoppingCart):
+def test_add_items_to_cart(shopping_cart: ShoppingCart, item: Item):
     shopping_cart.add_item(
-        Item("Foozie Ergonomic Mouse", "Comfy Mouse for gamers", 50).__dict__, 40
+        item, 40
     )
     assert shopping_cart.cart_size == 1
 
 
-def test_remove_item_from_cart(shopping_cart: ShoppingCart):
+def test_remove_item_from_cart(shopping_cart: ShoppingCart, item: Item):
     shopping_cart.add_item(
-        Item("Foozie Ergonomic Mouse", "Comfy Mouse for gamers", 50), 40
+        item, 40
     )
     shopping_cart.remove_cart_item(
-        Item("Foozie Ergonomic Mouse", "Comfy Mouse for gamers", 50)
+        item
     )
     assert shopping_cart.cart_size == 0
 
