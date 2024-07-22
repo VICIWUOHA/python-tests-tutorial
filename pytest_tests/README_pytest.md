@@ -30,3 +30,5 @@ To run `pytest` tests, simply use the `pytest` command followed by the test file
 - `pytest` to discover and run all tests in the current directory and subdirectories.
 - `pytest test_file.py` to run tests in a specific file.
 - `pytest -k test_name` to run tests with a specific name.
+
+Another beautiful use case of pytest is that it can also be used to run your unit test cases using the same commands above
