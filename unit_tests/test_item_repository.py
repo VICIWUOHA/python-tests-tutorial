@@ -5,6 +5,7 @@ from src.item import Item, ItemRepository
 class TestItemRepository(unittest.TestCase):
     def setUp(self):
         self.item_repo = ItemRepository()
+        # would update to setup items later
 
     @unittest.skip("Skipping test_get_items for demonstration purposes")
     def test_create_item(self):
