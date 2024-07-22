@@ -47,7 +47,7 @@ class TestItemRepository(unittest.TestCase):
             "Ergonomic Monitor", "High-quality monitor for professional work", 199.99
         )
         updated_item = self.item_repo.update_item(
-            item.id,
+            item.sku,
             "Ergonomic Monitor",
             "High-quality monitor for professional work",
             249.99,
@@ -66,4 +66,4 @@ class TestItemRepository(unittest.TestCase):
             "Noise-cancelling headphones for immersive audio experience",
             99.99,
         )
-        deleted_item = self.item_repo.delete_item(item.id)
+        deleted_item = self.item_repo.delete_item(item.sku)
