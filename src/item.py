@@ -72,72 +72,77 @@ class ItemRepository:
     """
 
     def __init__(self) -> None:
-        self.item_count: int = 0
-        self._db_conn = sqlite3.connect("items.db")
-        self._db_cursor = self._db_conn.cursor()
+        self.__db_conn = sqlite3.connect("items.db")
+        self.__db_cursor = self.__db_conn.cursor()
         self.__create_items_table()
-        
+
     def __create_items_table(self) -> None:
-        self._db_cursor.execute("""CREATE TABLE IF NOT EXISTS items
+        self.__db_cursor.execute("""CREATE TABLE IF NOT EXISTS items
                                  (sku VARCHAR PRIMARY KEY, name TEXT, description TEXT, price INTEGER);""")
-        self._db_conn.commit()
+        self.__db_conn.commit()
 
     def __item_exists(self, item_sku: str) -> bool:
         """
         Checks if an item exists in teh db based on SKU.
         """
-        self._db_cursor.execute("SELECT 1 FROM items WHERE sku = ?", (item_sku,))
-        return self._db_cursor.fetchone() is not None
+        self.__db_cursor.execute("SELECT 1 FROM items WHERE sku = ?", (item_sku,))
+        return self.__db_cursor.fetchone() is not None
 
     def __add_item_to_db(self, item_dict: dict) -> bool:
         try:
-            self._db_cursor.execute(
+            self.__db_cursor.execute(
                 "INSERT INTO items VALUES (:sku, :name, :description, :price)",
                 item_dict,
             )
-            self._db_conn.commit()
+            self.__db_conn.commit()
             return True
         except sqlite3.Error as e:
             logging.error(f"** Error while inserting item to db: {e}")
             return False
+    
+    @property
+    def item_count(self)->int:
+        """
+        Returns the number of existing items in the database.
+        """
+        return self.__db_cursor.execute("SELECT COUNT(1) FROM items").fetchone()[0]
 
-    def create_item(self, name, description, price) -> Item:
+    def create_item(self, name:str, description:str, price:int) -> Item:
         item = Item(name, description, price)
         if self.__item_exists(item.sku):
             raise ValueError(f"{item.sku} already exists.")
 
         if self.__add_item_to_db(item.__dict__):
-            self.item_count += 1
             return item
 
     def get_item(self, item_sku: str = None) -> Item | None:
         if item_sku:
-            self._db_cursor.execute("SELECT * FROM items WHERE sku = ?", (item_sku,))
-            item_data = self._db_cursor.fetchone()
+            self.__db_cursor.execute("SELECT * FROM items WHERE sku = ?", (item_sku,))
+            item_data = self.__db_cursor.fetchone()
             return (
-                Item(item_data[0], item_data[1], item_data[2], item_data[3])
+                Item(item_data[1], item_data[2], item_data[3], item_data[0])
                 if item_data
                 else None
             )
         raise KeyError("item_sku is required for the `get_item` call.")
 
     def get_all_items(self, limit:int=100) -> list[Item]:
-        self._db_cursor.execute(f"SELECT * FROM items LIMIT {limit}")
-        items = self._db_cursor.fetchall()
+        self.__db_cursor.execute(f"SELECT * FROM items LIMIT {limit}")
+        items = self.__db_cursor.fetchall()
         if not items:
             return []
-        return [Item(item[0], item[1], item[2], item[3]) for item in items]
+        return [Item(item[1], item[2], item[3], item[0]) for item in items]
         
 
-    def update_item(self, item: Item) -> None:
+    def update_item(self, item: Item) -> Item:
         # check existence of item in db
         if self.__item_exists(item.sku):
             # update item in db
-            self._db_cursor.execute(
+            self.__db_cursor.execute(
                 "UPDATE items SET name = ?, description = ?, price = ? WHERE sku = ?",
                 (item.name, item.description, item.price, item.sku),
             )
-            self._db_conn.commit()
+            self.__db_conn.commit()
             return self.get_item(item.sku)
         else:
             raise ValueError(f"Item `{item.sku}` does not exist in the database.")
@@ -145,9 +150,8 @@ class ItemRepository:
 
     def delete_item(self, item_sku: str) -> None:
         if self.__item_exists(item_sku):
-            self._db_cursor.execute("DELETE FROM items WHERE sku = ?", (item_sku, ))
-            self._db_conn.commit()
-            self.item_count -= 1
+            self.__db_cursor.execute("DELETE FROM items WHERE sku = ?", (item_sku, ))
+            self.__db_conn.commit()
             return
         raise ValueError(f"Item `{item_sku}` does not exist in the database.")
 
