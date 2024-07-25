@@ -47,20 +47,21 @@ class TestItemRepository(unittest.TestCase):
         )
         updated_item = self.item_repo.update_item(
             Item(
-            "Ergonomic Monitor",
-            "High-quality monitor for professional work and bustle",
-            249.99,
-            item.sku)
+                "Ergonomic Monitor",
+                "High-quality monitor for professional work and bustle",
+                249.99,
+                item.sku,
+            )
         )
         self.assertIsInstance(updated_item, Item)
         self.assertEqual(updated_item.name, "Ergonomic Monitor")
         self.assertEqual(
-            updated_item.description, "High-quality monitor for professional work and bustle"
+            updated_item.description,
+            "High-quality monitor for professional work and bustle",
         )
         self.assertGreater(updated_item.price, item.price)
 
     def test_delete_item(self):
-        
         item = self.item_repo.create_item(
             "Double Bass Headphones",
             "Noise-cancelling headphones for an immersive audio experience",
@@ -70,7 +71,6 @@ class TestItemRepository(unittest.TestCase):
         self.item_repo.delete_item(item.sku)
         self.assertIsNone(self.item_repo.get_item(item_sku=item.sku))
         post_del_item_count = self.item_repo.item_count
-        self.assertEqual(pre_del_item_count,post_del_item_count+1)
+        self.assertEqual(pre_del_item_count, post_del_item_count + 1)
         with self.assertRaises(ValueError):
             self.item_repo.delete_item(item_sku=item.sku)
-        
