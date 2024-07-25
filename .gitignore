@@ -1,4 +1,5 @@
 *rough/*
+*.rough
 *.db
 *cache*
 *.env
