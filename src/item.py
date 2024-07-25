@@ -13,7 +13,7 @@ class Item:
         `name` (str): The name of the item.
         `description` (str): A brief description of the item.
         `price` (int): The price of the item in USD.
-        `sku` (str): A unique stock-keeping unit (SKU) for the item, generated automatically. 
+        `sku` (str): A unique stock-keeping unit (SKU) for the item, generated automatically.
                      Note that this can be delegated to the database engine in prod use cases.
 
     """
@@ -98,20 +98,20 @@ class ItemRepository:
         except sqlite3.Error as e:
             logging.error(f"** Error while inserting item to db: {e}")
             return False
-    
+
     @property
-    def item_count(self)->int:
+    def item_count(self) -> int:
         """
         Returns the number of existing items in the database.
         """
         return self.__db_cursor.execute("SELECT COUNT(1) FROM items").fetchone()[0]
 
-    def create_item(self, name:str, description:str, price:int) -> Item:
+    def create_item(self, name: str, description: str, price: int) -> Item:
         """
         Creates a new item and stores it in the database.
         Returns the created item object.
         """
-        
+
         item = Item(name, description, price)
         if self.__item_exists(item.sku):
             raise ValueError(f"{item.sku} already exists.")
@@ -135,7 +135,7 @@ class ItemRepository:
             )
         raise KeyError("item_sku is required for the `get_item` call.")
 
-    def get_all_items(self, limit:int=100) -> list[Item]:
+    def get_all_items(self, limit: int = 100) -> list[Item]:
         """
         Retrieves all items from the database with an default limit of 100.
         """
@@ -145,7 +145,6 @@ class ItemRepository:
         if not items:
             return []
         return [Item(item[1], item[2], item[3], item[0]) for item in items]
-        
 
     def update_item(self, item: Item) -> Item:
         """
@@ -166,15 +165,13 @@ class ItemRepository:
         else:
             raise ValueError(f"Item `{item.sku}` does not exist in the database.")
 
-
     def delete_item(self, item_sku: str) -> None:
         """
         Deletes an item from the database by its SKU.
         Raises a ValueError if a non-existing Item is supplied.
         """
         if self.__item_exists(item_sku):
-            self.__db_cursor.execute("DELETE FROM items WHERE sku = ?", (item_sku, ))
+            self.__db_cursor.execute("DELETE FROM items WHERE sku = ?", (item_sku,))
             self.__db_conn.commit()
             return
         raise ValueError(f"Item `{item_sku}` does not exist in the database.")
-
