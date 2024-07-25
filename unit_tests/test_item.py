@@ -1,6 +1,5 @@
 import unittest
 from src.item import Item
-# , ItemRepository
 
 
 class TestItem(unittest.TestCase):
