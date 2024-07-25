@@ -52,11 +52,6 @@ class ItemRepository:
     """
     An implementation class to manage CRUD ops for items in an e-commerce system using a SQLite database.
 
-    Attributes:
-        `item_count` (int): The number of items in the repository.
-        `_db_conn` (sqlite3.Connection): The connection to the SQLite database.
-        `_db_cursor` (sqlite3.Cursor): The cursor object for executing SQL queries.
-        `item_db` (dict[str, Item]): A dictionary to store items, keyed by their SKU.
 
     Methods:
         `create_item(name, description, price)`:
