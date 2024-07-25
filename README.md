@@ -10,8 +10,8 @@ This Project aims to show engineers how to effectively test their applications i
 
 To learn about the Pytest framework, go to;
 
-- [Pytest/]()
+- [Pytest/](https://github.com/VICIWUOHA/python-tests-tutorial/tree/main/pytest_tests)
 
 To find out about Unit Tests, go to ;
 
-- [Unit Tests/]()
+- [Unit Tests/](https://github.com/VICIWUOHA/python-tests-tutorial/tree/main/unit_tests)
