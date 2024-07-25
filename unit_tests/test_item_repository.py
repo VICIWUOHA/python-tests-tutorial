@@ -7,7 +7,7 @@ class TestItemRepository(unittest.TestCase):
         self.item_repo = ItemRepository()
         # would update to setup items later
 
-    @unittest.skip("Skipping test_get_items for demonstration purposes")
+    # @unittest.skip("Skipping test_get_items for demonstration purposes")
     def test_create_item(self):
         item = self.item_repo.create_item(
             "Ergonomic Keyboard", "Comfortable keyboard for long typing sessions", 79.99
@@ -34,37 +34,43 @@ class TestItemRepository(unittest.TestCase):
     def test_get_item_nonexistent(self):
         self.assertIsNone(self.item_repo.get_item("nonexistent_sku"))
 
-    @unittest.skip("Method Not Implemented")
-    def test_get_items(self):
-        items = self.item_repo.get_items()
+    def test_get_all_items(self):
+        items = self.item_repo.get_all_items()
         self.assertIsInstance(items, list)
         self.assertGreaterEqual(len(items), 0)
         for item in items:
             self.assertIsInstance(item, Item)
 
-    @unittest.skip("Skipping test_get_items for demonstration purposes")
     def test_update_item(self):
         item = self.item_repo.create_item(
             "Ergonomic Monitor", "High-quality monitor for professional work", 199.99
         )
         updated_item = self.item_repo.update_item(
-            item.sku,
+            Item(
             "Ergonomic Monitor",
-            "High-quality monitor for professional work",
+            "High-quality monitor for professional work and bustle",
             249.99,
+            item.sku)
         )
         self.assertIsInstance(updated_item, Item)
         self.assertEqual(updated_item.name, "Ergonomic Monitor")
         self.assertEqual(
-            updated_item.description, "High-quality monitor for professional work"
+            updated_item.description, "High-quality monitor for professional work and bustle"
         )
-        self.assertEqual(updated_item.price, 249.99)
+        self.assertGreater(updated_item.price, item.price)
 
-    @unittest.skip("Skipping test_get_items for demonstration purposes")
     def test_delete_item(self):
+        
         item = self.item_repo.create_item(
-            "Ergonomic Headphones",
-            "Noise-cancelling headphones for immersive audio experience",
+            "Double Bass Headphones",
+            "Noise-cancelling headphones for an immersive audio experience",
             99.99,
         )
-        deleted_item = self.item_repo.delete_item(item.sku)
+        pre_del_item_count = self.item_repo.item_count
+        self.item_repo.delete_item(item.sku)
+        self.assertIsNone(self.item_repo.get_item(item_sku=item.sku))
+        post_del_item_count = self.item_repo.item_count
+        self.assertEqual(pre_del_item_count,post_del_item_count+1)
+        with self.assertRaises(ValueError):
+            self.item_repo.delete_item(item_sku=item.sku)
+        
