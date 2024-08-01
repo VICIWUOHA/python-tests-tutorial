@@ -14,7 +14,6 @@ class ShoppingCart:
         print(
             f" ==>>>> Hello {self.cart_owner} Your New Cart ->(`{self.cart_id}`) was Created at `{self.cart_creation_time}`."
         )
-        pass
 
     @property
     def cart_size(self):
