@@ -1,5 +1,6 @@
 import unittest
-from src.item import Item, ItemRepository
+from src.item_repository import ItemRepository
+from src.item import Item
 
 
 class TestItemRepository(unittest.TestCase):

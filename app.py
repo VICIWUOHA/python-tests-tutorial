@@ -1,4 +1,5 @@
-from src.item import Item, ItemRepository
+from src.item_repository import ItemRepository
+from src.item import Item
 from src.shopping_cart import ShoppingCart
 
 ##### Dummy Script for testing App Functionality
@@ -21,3 +22,6 @@ item_2 = Item(
 item_3 = item_2
 
 print(item_3 == demo_item)
+
+import sys
+print(sys.path)
