@@ -31,4 +31,10 @@ To run `pytest` tests, simply use the `pytest` command followed by the test file
 - `pytest test_file.py` to run tests in a specific file.
 - `pytest -k test_name` to run tests with a specific name.
 
-Another beautiful use case of pytest is that it can also be used to run your unit test cases using the same commands above
+Another beautiful use case of pytest is that it can also be used to run your unit test cases using the same commands above.
+
+#### OPTIONAL TESTS YOU CAN IMPLEMENT
+
+1) implement the skipped test - `test_reduce_nonexistent_item_from_cart`
+2) Write a test that would fail if we try to add a -ve quantity to the cart.
+Let's see What happens if we try to add an item with negative quantity to the cart? You can Modify the ShoppingCart.add_item code to handle that, also build a test for it.
