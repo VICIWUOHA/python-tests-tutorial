@@ -26,6 +26,11 @@ class ShoppingCart:
             {"cart_id": self.cart_id, "cart_items": self.cart_obj}, indent=4
         )
 
+    @property
+    def reset_cart(self):
+        self.cart_obj = {}
+        print(f"==> Cart `{self.cart_id}` has been reset.")
+
     def __item_in_cart(self, item: Item):
         item_sku = item.sku
         if item_sku in self.cart_obj:
