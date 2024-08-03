@@ -22,7 +22,9 @@ class ShoppingCart:
 
     @property
     def show_cart(self):
-        return json.dumps({"cart_id": self.cart_id, "cart_items": self.cart_obj},indent=4)
+        return json.dumps(
+            {"cart_id": self.cart_id, "cart_items": self.cart_obj}, indent=4
+        )
 
     def __item_in_cart(self, item: Item):
         item_sku = item.sku
@@ -45,31 +47,43 @@ class ShoppingCart:
                 "updated_at": dt.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             }
             print(f"==>> `{item.name}` Added to Cart.")
-            return json.dumps({
-                "status": ShoppingCartStatus.CART_ITEM_ADDED.value,
-                f"{item.name}": self.cart_obj[f"{item.sku}"],
-            },indent=4)
+            return json.dumps(
+                {
+                    "status": ShoppingCartStatus.CART_ITEM_ADDED.value,
+                    f"{item.name}": self.cart_obj[f"{item.sku}"],
+                },
+                indent=4,
+            )
 
     def remove_cart_item(self, item: Item):
         self.cart_obj.pop(f"{item.sku}", "Item Not Found In Cart.")
-        return json.dumps({"status": ShoppingCartStatus.CART_ITEM_REMOVED.value, "item": item.__dict__},indent=4)
+        return json.dumps(
+            {
+                "status": ShoppingCartStatus.CART_ITEM_REMOVED.value,
+                "item": item.__dict__,
+            },
+            indent=4,
+        )
 
-    def increase_cart_item_quantity(self, item:Item, quantity:int):
+    def increase_cart_item_quantity(self, item: Item, quantity: int):
         # check if item exists
         if self.__item_in_cart(item):
             cart_item_details = self.cart_obj[f"{item.sku}"]
             cart_item_details["quantity"] += quantity
             cart_item_details["updated_at"] = dt.now().strftime("%Y-%m-%d %H:%M:%S.%f")
 
-            return json.dumps({
-                "status": ShoppingCartStatus.CART_ITEM_UPDATED.value,
-                f"{item.name}": self.cart_obj[f"{item.sku}"],
-            },indent=4)
+            return json.dumps(
+                {
+                    "status": ShoppingCartStatus.CART_ITEM_UPDATED.value,
+                    f"{item.name}": self.cart_obj[f"{item.sku}"],
+                },
+                indent=4,
+            )
         else:
             # we shouldn't be able to update non-existing items stock in cart
             raise Exception("ItemNotFound", f"Item {item.name} not in cart.")
 
-    def reduce_cart_item_quantity(self, item:Item, quantity):
+    def reduce_cart_item_quantity(self, item: Item, quantity):
         # check if item exists
         if self.__item_in_cart(item):
             cart_item_details = self.cart_obj[f"{item.sku}"]
@@ -78,10 +92,13 @@ class ShoppingCart:
                 return self.remove_cart_item(item)
             cart_item_details["quantity"] -= quantity
             cart_item_details["updated_at"] = dt.now().strftime("%Y-%m-%d %H:%M:%S.%f")
-            return json.dumps({
-                "status": ShoppingCartStatus.CART_ITEM_UPDATED.value,
-                f"{item.name}": self.cart_obj[f"{item.sku}"],
-            },indent=4)
+            return json.dumps(
+                {
+                    "status": ShoppingCartStatus.CART_ITEM_UPDATED.value,
+                    f"{item.name}": self.cart_obj[f"{item.sku}"],
+                },
+                indent=4,
+            )
         else:
             # we shouldn't be able to update non-existing items stock in cart
             raise Exception("ItemNotFound", f"Item {item.name} not in Cart.")
