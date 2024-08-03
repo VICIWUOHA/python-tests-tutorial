@@ -13,7 +13,7 @@ jobs:
       - name: Run lint check with ruff on Changed files
         uses: chartboost/ruff-action@v1
         with:
-          args: 'format --check -v'
+          args: 'format --diff -v'
           changed-files: 'true'
           
   test:
