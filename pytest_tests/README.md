@@ -26,15 +26,26 @@ Fixtures are reusable setup code that can be shared across multiple test functio
 3. Use standard Python `assert` statements for assertions.
 
 ## Running Tests
+Note: depending on the setup of your PYTHONPATH/IDE, you may get a no module names src error
+to run these tests from your terminal, add `python -m` before all your commands below.
+or better stil configure your IDE setup to allow such imports fromm src/
+
 To run `pytest` tests, simply use the `pytest` command followed by the test file or directory. Common commands include:
 - `pytest` to discover and run all tests in the current directory and subdirectories.
-- `pytest test_file.py` to run tests in a specific file.
+- `python -m pytest test_file.py` to run tests in a specific file.
 - `pytest -k test_name` to run tests with a specific name.
 
 Another beautiful use case of pytest is that it can also be used to run your unit test cases using the same commands above.
+
+To see stdout messages in a verbose manner. In this case for our tests in /pytest_tests use ;
+- `python -m pytest_tests -s -vvv`
+
+running with -s alone gives you just log/prints to stdout.
+
 
 #### OPTIONAL TESTS YOU CAN IMPLEMENT
 
 1) implement the skipped test - `test_reduce_nonexistent_item_from_cart`
 2) Write a test that would fail if we try to add a -ve quantity to the cart.
 Let's see What happens if we try to add an item with negative quantity to the cart? You can Modify the ShoppingCart.add_item code to handle that, also build a test for it.
+3) Think of any other cases that may break if the code logic changes
