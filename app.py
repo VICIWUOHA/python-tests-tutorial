@@ -45,5 +45,5 @@ sleep(3)
 print(my_Cart.remove_cart_item(demo_item))
 print(f"Hello `{my_Cart.cart_owner}` Your cart would be reset in 5 seconds..")
 sleep(5)
-my_Cart.reset_cart
+my_Cart.reset_cart()
 print(my_Cart.show_cart)
