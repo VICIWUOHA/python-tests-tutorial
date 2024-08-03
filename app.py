@@ -22,6 +22,3 @@ item_2 = Item(
 item_3 = item_2
 
 print(item_3 == demo_item)
-
-import sys
-print(sys.path)
