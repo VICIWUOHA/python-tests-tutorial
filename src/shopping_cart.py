@@ -22,12 +22,12 @@ class ShoppingCart:
 
     @property
     def show_cart(self):
-        return json.dumps({"cart_id": self.cart_id, "cart_items": self.cart_obj})
+        return json.dumps({"cart_id": self.cart_id, "cart_items": self.cart_obj},)
 
     def __item_in_cart(self, item: Item):
-        item_sku = item["sku"]
+        item_sku = item.sku
         if item_sku in self.cart_obj:
-            print(f"Item `{item['name']}` already in cart.")
+            print(f"Item `{item.name}` already in cart.")
             return True
         return False
 
@@ -37,54 +37,59 @@ class ShoppingCart:
         if self.__item_in_cart(item):
             self.increase_cart_item_quantity(item, quantity)
         else:
-            # add new item
-            item["quantity"] = quantity
-            self.cart_obj[f"{item['sku']}"] = item
-            print(f"==>> {item['name']} Added to Cart.")
+            # add new item using it's __dict__ property for easy access
+            self.cart_obj[f"{item.sku}"] = {
+                "item": item.__dict__,
+                "quantity": quantity,
+                "added_at": dt.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
+                "updated_at": dt.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
+            }
+            print(f"==>> {item.name} Added to Cart.")
             return {
                 "status": ShoppingCartStatus.CART_ITEM_ADDED.value,
-                f"{item['name']}": self.cart_obj[f"{item['sku']}"],
+                f"{item.name}": self.cart_obj[f"{item.sku}"],
             }
 
     def remove_cart_item(self, item: Item):
-        self.cart_obj.pop(f"{item['sku']}", "Item Not Found In Cart.")
-
+        self.cart_obj.pop(f"{item.sku}", "Item Not Found In Cart.")
         return {"status": ShoppingCartStatus.CART_ITEM_REMOVED.value, "Item": item}
 
-    def increase_cart_item_quantity(self, item, quantity):
+    def increase_cart_item_quantity(self, item:Item, quantity:int):
         # check if item exists
         if self.__item_in_cart(item):
-            cart_item_details = self.cart_obj[f"{item['sku']}"]
+            cart_item_details = self.cart_obj[f"{item.sku}"]
             cart_item_details["quantity"] += quantity
+            cart_item_details["updated_at"] = dt.now().strftime("%Y-%m-%d %H:%M:%S.%f")
 
             return {
                 "status": ShoppingCartStatus.CART_ITEM_UPDATED.value,
-                f"{item['name']}": self.cart_obj[f"{item['sku']}"],
+                f"{item.name}": self.cart_obj[f"{item.sku}"],
             }
         else:
             # we shouldn't be able to update non-existing items stock in cart
-            raise Exception("ItemNotFound", f"Item {item['name']} not in cart.")
+            raise Exception("ItemNotFound", f"Item {item.name} not in cart.")
 
-    def reduce_cart_item_quantity(self, item, quantity):
+    def reduce_cart_item_quantity(self, item:Item, quantity):
         # check if item exists
         if self.__item_in_cart(item):
-            cart_item_details = self.cart_obj[f"{item['sku']}"]
+            cart_item_details = self.cart_obj[f"{item.sku}"]
             if cart_item_details["quantity"] <= quantity:
                 # not the best impl, but this means a reduction to zero or less, hence remove item from cart.
                 return self.remove_cart_item(item)
             cart_item_details["quantity"] -= quantity
+            cart_item_details["updated_at"] = dt.now().strftime("%Y-%m-%d %H:%M:%S.%f")
             return {
                 "status": ShoppingCartStatus.CART_ITEM_UPDATED.value,
-                f"{item['name']}": self.cart_obj[f"{item['sku']}"],
+                f"{item.name}": self.cart_obj[f"{item.sku}"],
             }
         else:
             # we shouldn't be able to update non-existing items stock in cart
-            raise Exception("ItemNotFound", f"Item {item['name']} not in Cart.")
-
+            raise Exception("ItemNotFound", f"Item {item.name} not in Cart.")
 
 
 class ShoppingCartStatus(Enum):
-    """ Handles different Statuses which we can encounter within our Shoping Cart"""
+    """Handles different Statuses which we can encounter within our Shoping Cart"""
+
     # Arguably we can embed this in the ShoppingCart Class, but let's keep it separate for now.
 
     CART_CREATED = "CartCreated"
