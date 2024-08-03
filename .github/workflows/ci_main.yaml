@@ -31,7 +31,7 @@ jobs:
 
       - name: Run pytest tests in verbose manner
         run: |
-          python -m pytest pytest_test/ -s -vvv --cov=src/ --cov-report=term-missing
+          python -m pytest pytest_test/ -s -vvv
 
       - name: Run unittests
         run: |
