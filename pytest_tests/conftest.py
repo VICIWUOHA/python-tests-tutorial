@@ -16,4 +16,4 @@ def shopping_cart() -> ShoppingCart:
 def item():
     return Item(
         name="Foozie Ergonomic Mouse", description="Comfy Mouse for gamers", price=50
-    ).__dict__
+    )
