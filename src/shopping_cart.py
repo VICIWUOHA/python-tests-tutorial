@@ -98,16 +98,4 @@ class ShoppingCartStatus(Enum):
     CART_ITEM_UPDATED = "CartItemUpdated"
 
 
-# mouse = Item("Foozie Ergonomic Mouse", "Comfy Mouse for gamers", 50).item()
-# pprint(speaker_item)
-# my_Cart = ShoppingCart("Ewolo")
-# my_Cart.add_item(speaker_item, 4)
-# my_Cart.add_item(mouse, 40)
-# pprint(my_Cart.cart_size)
-# pprint(my_Cart.show_cart)
-# pprint(my_Cart.increase_cart_item_quantity(speaker_item, 3))
-# pprint(my_Cart.reduce_cart_item_quantity(speaker_item, 3))
-# pprint(my_Cart.show_cart)
-# pprint(my_Cart.reduce_cart_item_quantity(speaker_item, 4))
-# pprint(my_Cart.show_cart)
-# pprint(my_Cart.reduce_cart_item_quantity(speaker_item, 4))
+#  See sample Shopping Flow in app.py
