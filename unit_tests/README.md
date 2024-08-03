@@ -27,5 +27,12 @@ A test runner is responsible for discovering and running test cases. You can use
 ## Running Tests
 To run `unittest` tests, you can use the command line or an IDE with built-in test runners. Common CLI commands include:
 - `python -m unittest test_module` to run all tests in a module.
+        
+    - In our example this would be `python -m unittest unit_tests/test_item.py` or
+    - `python -m unittest unit_tests.test_item`
+    
 - `python -m unittest test_module.TestClass` to run all tests in a specific test class.
+
+    - An example in our case would be `python -m unittest unit_tests.test_item_repository.TestItemRepository`
+    
 - `python -m unittest test_module.TestClass.test_method` to run a specific test method.
