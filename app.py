@@ -13,7 +13,7 @@ demo_item = Item(
 )
 
 demo_item_2 = Item(
-    name="Demo Item 2",
+    name="Demo Item 2",,
     description="This is a demo item 2",
     price=200,
 )
