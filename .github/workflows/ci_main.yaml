@@ -1,9 +1,9 @@
 name: "Prod tests for Ecommerce App"
 
 on:
-  [push, pull_request]
-  # branches:
-  #   - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   lint:
