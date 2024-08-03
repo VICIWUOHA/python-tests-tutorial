@@ -15,6 +15,11 @@ def test_remove_item_from_cart(shopping_cart: ShoppingCart, item: Item):
     assert shopping_cart.cart_size == 0
 
 
+def test_reduce_item_quantity_from_cart(shopping_cart: ShoppingCart, item: Item):
+    shopping_cart.add_item(item=item, quantity=40)
+    shopping_cart.reduce_cart_item_quantity(item=item, quantity=10)
+    assert shopping_cart.cart_obj.get(item["sku"])["quantity"] == 30
+
 @pytest.mark.skip(reason="Not Implemented Yet")
 def test_reduce_nonexistent_item_from_cart(shopping_cart: ShoppingCart, item: Item):
     shopping_cart.add_item(item=item, quantity=40)
