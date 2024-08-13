@@ -43,12 +43,14 @@ To see stdout messages in a verbose manner. In this case for our tests in /pytes
 running with -s alone gives you just log/prints to stdout.
 
 
-#### OPTIONAL TESTS YOU CAN IMPLEMENT
+#### OPTIONAL TESTS/ ENHANCEMENTS YOU CAN IMPLEMENT
 
-1) implement the skipped test - `test_reduce_nonexistent_item_from_cart`
+1) Implement the skipped test - `test_reduce_nonexistent_item_from_cart`
 2) Write a test that would fail if we try to add a -ve quantity to the cart.
 Let's see What happens if we try to add an item with negative quantity to the cart? You can Modify the ShoppingCart.add_item code to handle that, also build a test for it.
 3) Think of any other cases that may break if the code logic changes
+4) We can also move the redundant add_item action in most test cases to our shopping cart fixture in [pytest_tests/conftest.py](https://github.com/VICIWUOHA/python-tests-tutorial/tree/main/pytest_tests/conftest.py)
+5) The list goes on...
 
 
 _Want more details ?? visit the [Offical pytest docs](https://docs.pytest.org/en/stable/contents.html)_.
