@@ -33,7 +33,7 @@ or better stil configure your IDE setup to allow such imports fromm src/
 To run `pytest` tests, simply use the `pytest` command followed by the test file or directory. Common commands include:
 - `pytest` to discover and run all tests in the current directory and subdirectories.
 - `python -m pytest test_file.py` to run tests in a specific file.
-- `pytest -k test_name` to run tests with a specific name.
+- `pytest -k test_name` to run tests with a specific name/pattern.
 
 Another beautiful use case of pytest is that it can also be used to run your unit test cases using the same commands above.
 
@@ -49,3 +49,6 @@ running with -s alone gives you just log/prints to stdout.
 2) Write a test that would fail if we try to add a -ve quantity to the cart.
 Let's see What happens if we try to add an item with negative quantity to the cart? You can Modify the ShoppingCart.add_item code to handle that, also build a test for it.
 3) Think of any other cases that may break if the code logic changes
+
+
+_Want more details ?? visit the [Offical pytest docs](https://docs.pytest.org/en/stable/contents.html)_.
