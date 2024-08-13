@@ -9,7 +9,9 @@ def test_add_items_to_cart(shopping_cart: ShoppingCart, item: Item):
     assert shopping_cart.cart_size == 1
 
 
-def test_single_item_cart_size_is_zero_after_removal(shopping_cart: ShoppingCart, item: Item):
+def test_single_item_cart_size_is_zero_after_removal(
+    shopping_cart: ShoppingCart, item: Item
+):
     shopping_cart.add_item(item, 40)
     shopping_cart.remove_cart_item(item)
     assert shopping_cart.cart_size == 0
