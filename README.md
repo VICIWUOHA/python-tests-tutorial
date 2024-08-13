@@ -2,13 +2,14 @@
 
 **Author:** _Victor Iwuoha_
 
-**State:** _Draft_
+**Date:** _August, 2024_
+
 
 This Project aims to show engineers how to effectively test their applications in Python.
 
 
 
-To learn about the Pytest framework, go to;
+To learn hands-on about the Pytest framework, go to;
 
 - [Pytest/](https://github.com/VICIWUOHA/python-tests-tutorial/tree/main/pytest_tests)
 
