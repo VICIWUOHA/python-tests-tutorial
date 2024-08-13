@@ -25,7 +25,7 @@ print(item_3 == demo_item)
 # check other type comparison
 print(item_3 == "demo_item")
 
-# Sample Shopping Flow
+# Sample Shopping Flow -> to be used for integration tests
 
 print("========> ShoppingCart Demo In Progress <============")
 my_Cart = ShoppingCart("Ewolo")
