@@ -8,7 +8,7 @@ class TestItemRepository(unittest.TestCase):
         self.item_repo = ItemRepository()
         # would update to setup items later
 
-    # @unittest.skip("Skipping test_get_items for demonstration purposes")
+    # @unittest.skip("Uncomment to Skip test_create_items for demonstration purposes")
     def test_create_item(self):
         item = self.item_repo.create_item(
             "Ergonomic Keyboard", "Comfortable keyboard for long typing sessions", 79.99

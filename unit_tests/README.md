@@ -9,7 +9,7 @@
 A test case is the individual unit of testing in `unittest`. You create test cases by subclassing `unittest.TestCase`. Each test case is responsible for testing a specific aspect of your code.
 
 ### Test Fixture
-A test fixture is the preparation needed to run a test case. You can set up fixtures using methods like `setUp()` and `tearDown()`. These methods are called before and after each test method in a test case.
+A test fixture is the preparation needed to run a test case. You can set up fixtures using methods like `setUp()` and `tearDown()`. These methods are called before and after each test method in a test case. In our example, we have ensured implemented the setUp method to ensure that out ItemRepository is always instantiated before each test in our class.
 
 ### Test Method
 A test method is a method within a test case that performs a specific test. Test method names must start with the word "test."
@@ -36,3 +36,14 @@ To run `unittest` tests, you can use the command line or an IDE with built-in te
     - An example in our case would be `python -m unittest unit_tests.test_item_repository.TestItemRepository`
     
 - `python -m unittest test_module.TestClass.test_method` to run a specific test method.
+
+Other notes.
+- To allow for verbose outputs we can add the _**-v**_ flag as follows
+    - `python -m unittest unit_tests.test_item -v`
+- We can also match tests based on their names using the _**-k**_ flag after the unittest command
+    - `python -m unittest -k unit_tests.test_item_re -v`
+
+    The above command would only run the tests in the **unit_tests/test_item_repository.py** file with verbose output.
+
+
+_Want more details ?? visit the [Offical Unittest docs](https://docs.python.org/3/library/unittest.html)_.
